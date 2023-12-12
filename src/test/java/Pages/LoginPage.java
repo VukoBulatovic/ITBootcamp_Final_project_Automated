@@ -1,6 +1,7 @@
 package Pages;
 
 import Base.BaseTest;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -25,7 +26,7 @@ public class LoginPage extends BaseTest {
     public WebElement loginButton;
 
     @FindBy(css = ".error-message-container.error")
-    public WebElement error;
+    public WebElement errorMessage;
 
     @FindBy(css = ".svg-inline--fa.fa-times-circle.fa-w-16.error_icon")
     public List<WebElement> errorIcon;
@@ -43,6 +44,12 @@ public class LoginPage extends BaseTest {
 
     public void clickOnLoginButton(){
         loginButton.click();
+    }
+
+    public void addACookies(){
+        Cookie cookie = new Cookie("session-username","standard_user");
+        driver.manage().addCookie(cookie);
+        driver.navigate().refresh();
     }
 
 }

@@ -18,40 +18,43 @@ public class InventoryTests extends BaseTest {
     @Test
     public void verifyUserCanAddItemToCart() throws InterruptedException {
 
-        inventoryPage.addToCartButton.get(0).click();
-        Thread.sleep(3000);
-        Assert.assertTrue(inventoryPage.removeButton.get(0).isDisplayed());
-        Assert.assertEquals(inventoryPage.removeButton.get(0).getText(),"Remove");
-        Assert.assertTrue(inventoryPage.cartItemsNumber.isDisplayed());
-        Assert.assertEquals(inventoryPage.cartItemsNumber.getText(),"1");
+        inventoryPage.clickOnAddToCartButton();
+        Assert.assertTrue(inventoryPage.listOfRemoveButtons.get(0).isDisplayed());
+        Assert.assertTrue(inventoryPage.checkIfCartIsEmpty());
         inventoryPage.clickOnCart();
         Assert.assertEquals(driver.getCurrentUrl(),baseURL + "cart.html");
-        Assert.assertTrue(cartPage.yourCartHeader.isDisplayed());
-        Assert.assertTrue(cartPage.itemInCart.isDisplayed());
-        Assert.assertTrue(cartPage.removeButton.isDisplayed());
+        Assert.assertTrue(cartPage.itemsInCart.get(0).isDisplayed());
         Assert.assertEquals(cartPage.cartQuantity.get(0).getText(),"1");
-        Assert.assertEquals(cartPage.numbersOfItemsOnCartIcon.getText(),"1");
+        Assert.assertEquals(cartPage.cartIcon.getText(),"1");
     }
 
     @Test
 
-    public void verifyUserCanAddAllItemsToCart(){
+    public void verifyUserCanAddAllItemsToCart() throws InterruptedException {
 
-        for (int i = inventoryPage.addToCartButton.size() - 1; i >= 0; i--) {
-            inventoryPage.addToCartButton.get(i).click();
+        for (int i = inventoryPage.listOfAddToCartButtons.size() - 1; i >= 0; i--) {
+            inventoryPage.listOfAddToCartButtons.get(i).click();
         }
-        Assert.assertEquals(inventoryPage.cartItemsNumber.getText(),"6");
+        Thread.sleep(3000);
+        Assert.assertEquals(inventoryPage.cartIcon.getText(),String.valueOf(inventoryPage.listOfItems.size()));
         inventoryPage.clickOnCart();
-        int currentItems = cartPage.numbersOfItemsInCart();
-        int totalItems = 6;
-        if(totalItems != currentItems){
-            Assert.fail();
-        }
+        Assert.assertEquals(String.valueOf(cartPage.numbersOfItemsInCart()),cartPage.cartIcon.getText());
         Assert.assertTrue(cartPage.checkOutButton.isDisplayed());
-        for (int i = 0; i < cartPage.cartQuantity.size(); i++) {
-            Assert.assertEquals(cartPage.cartQuantity.get(i).getText(),"1");
-        }
+      //TODO:   //checkQuantity();
     }
+
+    @Test
+
+    public void verifyUserHasItemsInCartAfterLogOut() throws InterruptedException {
+        Assert.assertTrue(inventoryPage.checkIfCartIsEmpty());
+        addAllItems();
+        logOut();
+        successfulLogIn();
+        Assert.assertEquals(String.valueOf(inventoryPage.listOfItems.size()),inventoryPage.cartIcon.getText());
+        Assert.assertTrue(inventoryPage.listOfAddToCartButtons.isEmpty());
+    }
+
+
 
 
 

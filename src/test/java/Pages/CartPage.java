@@ -19,11 +19,8 @@ public class CartPage extends BaseTest {
     @FindBy(className = "cart_quantity")
     public List<WebElement> cartQuantity;
 
-    @FindBy(className = "cart_item")
-    public WebElement itemInCart;
-
     @FindBy(className = "shopping_cart_badge")
-    public WebElement numbersOfItemsOnCartIcon;
+    public WebElement cartIcon;
 
     @FindBy(id = "checkout")
     public WebElement checkOutButton;
@@ -33,6 +30,8 @@ public class CartPage extends BaseTest {
 
     @FindBy(linkText = "Your Cart")
     public WebElement yourCartHeader;
+
+
 
 
 

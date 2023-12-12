@@ -12,20 +12,25 @@ public class InventoryPage extends BaseTest {
         PageFactory.initElements(driver,this);
     }
 
+
+
     @FindBy(id = "react-burger-menu-btn")
-    public WebElement dropDownMenu;
+    public WebElement sideBarMenu;
 
     @FindBy(id = "logout_sidebar_link")
     public WebElement logoutButton;
 
     @FindBy(css = ".btn.btn_primary.btn_small.btn_inventory ")
-    public List<WebElement> addToCartButton;
+    public List<WebElement> listOfAddToCartButtons;
+
+    @FindBy(className = "inventory_item")
+    public List<WebElement> listOfItems;
 
     @FindBy(css = ".btn.btn_secondary.btn_small.btn_inventory ")
-    public List<WebElement> removeButton;
+    public List<WebElement> listOfRemoveButtons;
 
     @FindBy(className = "shopping_cart_badge")
-    public WebElement cartItemsNumber;
+    public WebElement cartIcon;
 
     @FindBy(id = "shopping_cart_container")
     public WebElement cart;
@@ -33,11 +38,13 @@ public class InventoryPage extends BaseTest {
 
 
 
-
-
+    public void clickOnAddToCartButton() throws InterruptedException {
+        inventoryPage.listOfAddToCartButtons.get(0).click();
+        Thread.sleep(3000);
+    }
 
     public void clickOnSideBarMenu() throws InterruptedException {
-        dropDownMenu.click();
+        sideBarMenu.click();
         Thread.sleep(1500);
     }
     public void clickOnLogOutButton(){
@@ -47,7 +54,15 @@ public class InventoryPage extends BaseTest {
         cart.click();
     }
 
+    public boolean checkIfCartIsEmpty(){
+        return cartIcon.getText().isEmpty();
+    }
 
+    public void addAllItemsInCart(){
+        for (int i = inventoryPage.listOfAddToCartButtons.size() - 1; i >= 0; i--) {
+            inventoryPage.listOfAddToCartButtons.get(i).click();
+        }
+    }
 
 
 

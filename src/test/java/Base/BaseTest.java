@@ -71,7 +71,23 @@ public class BaseTest {
         Assert.assertEquals(driver.getCurrentUrl(),baseURL + "inventory.html");
     }
 
+    public void addAllItems(){
+        for (int i = inventoryPage.listOfAddToCartButtons.size() - 1; i >= 0; i--) {
+            inventoryPage.listOfAddToCartButtons.get(i).click();
+        }
+    }
 
+    public void logOut() throws InterruptedException {
+        inventoryPage.clickOnSideBarMenu();
+        inventoryPage.clickOnLogOutButton();
+    }
+
+   /* public boolean checkQuantity(){
+        for (int i = 0; i < cartPage.cartQuantity.size(); i++) {
+            if(Assert.assertEquals(cartPage.cartQuantity.get(i).getText(),"1")){
+            return true;
+        }
+    }*/
 
 
 
