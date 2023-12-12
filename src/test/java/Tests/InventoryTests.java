@@ -1,6 +1,8 @@
 package Tests;
 
 import Base.BaseTest;
+import Pages.InventoryPage;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -36,7 +38,7 @@ public class InventoryTests extends BaseTest {
             inventoryPage.listOfAddToCartButtons.get(i).click();
         }
         Thread.sleep(3000);
-        Assert.assertEquals(inventoryPage.cartIcon.getText(),String.valueOf(inventoryPage.listOfItems.size()));
+        Assert.assertEquals(inventoryPage.numberOnCartIcon.getText(),String.valueOf(inventoryPage.listOfItems.size()));
         inventoryPage.clickOnCart();
         Assert.assertEquals(String.valueOf(cartPage.numbersOfItemsInCart()),cartPage.cartIcon.getText());
         Assert.assertTrue(cartPage.checkOutButton.isDisplayed());
@@ -50,11 +52,17 @@ public class InventoryTests extends BaseTest {
         addAllItems();
         logOut();
         successfulLogIn();
-        Assert.assertEquals(String.valueOf(inventoryPage.listOfItems.size()),inventoryPage.cartIcon.getText());
+        Assert.assertEquals(String.valueOf(inventoryPage.listOfItems.size()),inventoryPage.numberOnCartIcon.getText());
         Assert.assertTrue(inventoryPage.listOfAddToCartButtons.isEmpty());
     }
 
+    @Test
 
+    public void verifyItemsSortAtoZ() throws InterruptedException {
+        Select select = new Select(inventoryPage.sortDropDownMenu);
+        select.selectByValue("az");
+
+    }
 
 
 

@@ -2,9 +2,11 @@ package Base;
 
 import Pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -27,6 +29,8 @@ public class BaseTest {
     public ExcelReader excelReader;
     public ItemPage itemPage;
 
+
+
     @BeforeClass
     public void setUp() throws IOException {
         WebDriverManager.chromedriver().setup();
@@ -43,6 +47,7 @@ public class BaseTest {
         checkOutFinalPage = new CheckOutFinalPage();
         itemPage = new ItemPage();
         excelReader = new ExcelReader("src/test/java/TestData/TestData.xlsx");
+
 
     }
 

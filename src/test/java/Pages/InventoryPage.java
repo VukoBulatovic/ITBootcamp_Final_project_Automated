@@ -1,11 +1,17 @@
 package Pages;
 
 import Base.BaseTest;
+import org.openqa.selenium.By;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ISelect;
+import org.openqa.selenium.support.ui.Select;
+import org.testng.Assert;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class InventoryPage extends BaseTest {
     public InventoryPage(){
@@ -30,10 +36,16 @@ public class InventoryPage extends BaseTest {
     public List<WebElement> listOfRemoveButtons;
 
     @FindBy(className = "shopping_cart_badge")
-    public WebElement cartIcon;
+    public WebElement numberOnCartIcon;
 
     @FindBy(id = "shopping_cart_container")
     public WebElement cart;
+
+    @FindBy(className = "product_sort_container")
+    public WebElement sortDropDownMenu;
+
+    @FindBy(linkText = "Name (A to Z)")
+    public WebElement aToZSortOption;
 
 
 
@@ -55,14 +67,11 @@ public class InventoryPage extends BaseTest {
     }
 
     public boolean checkIfCartIsEmpty(){
-        return cartIcon.getText().isEmpty();
+        return cart.getText().isEmpty();
     }
 
-    public void addAllItemsInCart(){
-        for (int i = inventoryPage.listOfAddToCartButtons.size() - 1; i >= 0; i--) {
-            inventoryPage.listOfAddToCartButtons.get(i).click();
-        }
-    }
+
+
 
 
 
