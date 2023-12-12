@@ -2,9 +2,11 @@ package Base;
 
 import Pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 
@@ -13,6 +15,7 @@ import java.time.Duration;
 
 public class BaseTest {
 
+    public String baseURL = "https://www.saucedemo.com/";
     public static WebDriver driver;
     public WebDriverWait wait;
     public LoginPage loginPage;
@@ -40,13 +43,47 @@ public class BaseTest {
         checkOutFinalPage = new CheckOutFinalPage();
         itemPage = new ItemPage();
         excelReader = new ExcelReader("src/test/java/TestData/TestData.xlsx");
+
     }
 
-    //Metode
+//----------------------------------------------------------------------------------------------------------------------
 
-    public void currentUrl(){
-        driver.getCurrentUrl();
+    public void goToBaseUrl(){
+        driver.navigate().to(baseURL);
     }
+
+    public void successfulLogIn(){
+        String validUsername = excelReader.getStringData("Login",1,0);
+        String validPassword = excelReader.getStringData("Login",1,1);
+        String expectedUrl = baseURL + "inventory.html";
+        loginPage.inputUsername(validUsername);
+        loginPage.inputPassword(validPassword);
+        loginPage.clickOnLoginButton();
+        Assert.assertEquals(driver.getCurrentUrl(),expectedUrl);
+    }
+
+    public void loggedIn(){
+        Cookie cookie = new Cookie("session-username","standard_user");
+        driver.manage().addCookie(cookie);
+        driver.navigate().refresh();
+        driver.navigate().to(baseURL + "inventory.html");
+        driver.navigate().refresh();
+        Assert.assertEquals(driver.getCurrentUrl(),baseURL + "inventory.html");
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
