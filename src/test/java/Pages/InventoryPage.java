@@ -2,23 +2,20 @@ package Pages;
 
 import Base.BaseTest;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ISelect;
-import org.openqa.selenium.support.ui.Select;
-import org.testng.Assert;
 
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class InventoryPage extends BaseTest {
     public InventoryPage(){
         PageFactory.initElements(driver,this);
     }
 
-
+    public ArrayList<String> listOfTabs = new ArrayList<>();
 
     @FindBy(id = "react-burger-menu-btn")
     public WebElement sideBarMenu;
@@ -44,8 +41,17 @@ public class InventoryPage extends BaseTest {
     @FindBy(className = "product_sort_container")
     public WebElement sortDropDownMenu;
 
-    @FindBy(linkText = "Name (A to Z)")
-    public WebElement aToZSortOption;
+    @FindBy(className = "inventory_item_price")
+    public List<WebElement> listOfPrices;
+
+    @FindBy(linkText = "Twitter")
+    public WebElement twitterIcon;
+
+    @FindBy(linkText = "Facebook")
+    public WebElement facebookIcon;
+
+    @FindBy(linkText = "LinkedIn")
+    public WebElement linkedIn;
 
 
 
@@ -70,10 +76,66 @@ public class InventoryPage extends BaseTest {
         return cart.getText().isEmpty();
     }
 
+    public boolean alphabeticallySorted(List<WebElement> listOfItems){
+        for (int i = 0; i < listOfItems.size()-1; i++) {
+            if(listOfItems.get(i).getText().compareTo(listOfItems.get(i+1).getText()) > 0)
+                    return false;
+        }
+        return true;
+    }
+
+    public boolean itemsSortedByPrice(List<WebElement> itemPrices){
+            for (int i = 0; i < itemPrices.size()-1; i++) {
+                var item = itemPrices.get(i).getText().substring(1);
+                var itemNext = itemPrices.get(i+1).getText().substring(1);
+                if( Double.parseDouble(item)  > Double.parseDouble(itemNext) ) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+    public void switchTabs(){
+        listOfTabs = new ArrayList<>(driver.getWindowHandles());
+    }    
+        
+    public void clickOnTwitter(){
+        twitterIcon.click();
+    }
+
+    public void clickOnFacebook(){
+        facebookIcon.click();
+    }
+
+    public void clickOnLinkedIn(){
+        linkedIn.click();
+    }
+
+
+    public void addRemoveAllItems(String addORremove){
+
+        if(addORremove.equals("add")){
+            for (WebElement a : listOfItems) {
+                a.findElement(By.cssSelector(".btn.btn_primary.btn_small.btn_inventory")).click();
+            }
+        } else if (addORremove.equals("remove")){
+            for (WebElement b : listOfItems) {
+                b.findElement(By.cssSelector(".btn.btn_secondary.btn_small.btn_inventory")).click();
+            }
+        }
+    }
 
 
 
 
 
 
-}
+
+
+    }
+
+
+
+
+
+

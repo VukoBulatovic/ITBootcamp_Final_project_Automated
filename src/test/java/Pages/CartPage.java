@@ -46,6 +46,15 @@ public class CartPage extends BaseTest {
         return sum;
     }
 
+    public boolean quantityCheck() {
+        for (int i = 0; i < cartQuantity.size(); i++) {
+            if (cartQuantity.get(i).getText().equals("1")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 
