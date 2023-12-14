@@ -23,13 +23,13 @@ public class InventoryPage extends BaseTest {
     @FindBy(id = "logout_sidebar_link")
     public WebElement logoutButton;
 
-    @FindBy(css = ".btn.btn_primary.btn_small.btn_inventory ")
+    @FindBy(css = ".btn.btn_primary.btn_small.btn_inventory")
     public List<WebElement> listOfAddToCartButtons;
 
     @FindBy(className = "inventory_item")
     public List<WebElement> listOfItems;
 
-    @FindBy(css = ".btn.btn_secondary.btn_small.btn_inventory ")
+    @FindBy(css = ".btn.btn_secondary.btn_small.btn_inventory")
     public List<WebElement> listOfRemoveButtons;
 
     @FindBy(className = "shopping_cart_badge")
@@ -52,6 +52,9 @@ public class InventoryPage extends BaseTest {
 
     @FindBy(linkText = "LinkedIn")
     public WebElement linkedIn;
+
+    @FindBy(className = "inventory_item_name")
+    public WebElement itemName;
 
 
 
@@ -125,8 +128,58 @@ public class InventoryPage extends BaseTest {
         }
     }
 
+    public boolean allNamesAreDisplayed(){
+        for (int i = 0; i < listOfItems.size(); i++) {
+            WebElement a = listOfItems.get(i);
+            if(a.findElement(By.className("inventory_item_name")).isDisplayed() &&
+              !a.findElement(By.className("inventory_item_name")).getText().isEmpty())
+                return true;
+        }
+        return false;
+    }
 
 
+    public boolean allPricesAreDisplayed(){
+        for (int i = 0; i < listOfItems.size(); i++) {
+            WebElement a = listOfItems.get(i);
+            if(a.findElement(By.className("inventory_item_price")).isDisplayed() &&
+              !a.findElement(By.className("inventory_item_price")).getText().isEmpty())
+                return true;
+        }
+        return false;
+    }
+
+
+    public boolean allDescriptionsAreDisplayed(){
+        for (int i = 0; i < listOfItems.size(); i++) {
+            WebElement a = listOfItems.get(i);
+            if(a.findElement(By.className("inventory_item_desc")).isDisplayed() &&
+              !a.findElement(By.className("inventory_item_desc")).getText().isEmpty())
+                return true;
+        }
+        return false;
+    }
+
+    public boolean allImagesAreDisplayed(){
+        for (int i = 0; i < listOfItems.size(); i++) {
+            WebElement a = listOfItems.get(i);
+            if(a.findElement(By.className("inventory_item_img")).isDisplayed() &&
+              !a.findElements(By.className("inventory_item_img")).isEmpty())
+                return true;
+        }
+        return false;
+    }
+
+    public boolean allAddToCartButtonsAreDisplayed(){
+        for (int i = 0; i < listOfItems.size(); i++) {
+            WebElement a = listOfItems.get(i);
+            if(a.findElement(By.className(".btn.btn_primary.btn_small.btn_inventory")).isDisplayed() &&
+              !a.findElement(By.className(".btn.btn_primary.btn_small.btn_inventory")).getText().isEmpty())
+                return true;
+        }
+        return false;
+    }
+    }
 
 
 

@@ -18,7 +18,6 @@ public class InventoryTests extends BaseTest {
 
     @Test
     public void verifyUserCanAddItemToCart() throws InterruptedException {
-
         inventoryPage.clickOnAddToCartButton();
         Assert.assertTrue(inventoryPage.listOfRemoveButtons.get(0).isDisplayed());
         Assert.assertTrue(inventoryPage.checkIfCartIsEmpty());
@@ -87,14 +86,11 @@ public class InventoryTests extends BaseTest {
     }
 
     @Test
-
     public void verifyAllItemsAreProperlyDisplayed(){
-        //TODO:
+        Assert.assertTrue(inventoryPage.allNamesAreDisplayed());
+        Assert.assertTrue(inventoryPage.allPricesAreDisplayed());
+        Assert.assertTrue(inventoryPage.allDescriptionsAreDisplayed());
+        Assert.assertTrue(inventoryPage.allImagesAreDisplayed());
+        Assert.assertTrue(inventoryPage.allAddToCartButtonsAreDisplayed());
     }
-
-
-
-
-
-
 }
