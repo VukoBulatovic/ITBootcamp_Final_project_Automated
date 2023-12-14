@@ -185,10 +185,5 @@ public class InventoryPage extends BaseTest {
 
 
 
-    }
-
-
-
-
 
 
