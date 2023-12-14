@@ -15,10 +15,12 @@ public class InventoryPage extends BaseTest {
         PageFactory.initElements(driver,this);
     }
 
+
+
     public ArrayList<String> listOfTabs = new ArrayList<>();
 
     @FindBy(id = "react-burger-menu-btn")
-    public WebElement sideBarMenu;
+    public WebElement sideBarMenuButton;
 
     @FindBy(id = "logout_sidebar_link")
     public WebElement logoutButton;
@@ -53,19 +55,50 @@ public class InventoryPage extends BaseTest {
     @FindBy(linkText = "LinkedIn")
     public WebElement linkedIn;
 
+    @FindBy(id = "inventory_sidebar_link")
+    public WebElement sideBarAllItems;
+
+    @FindBy(id = "about_sidebar_link")
+    public WebElement sideBarAbout;
+
+    @FindBy(id = "reset_sidebar_link")
+    public WebElement sideBarResetAppState;
+
+    @FindBy(className = "bm-menu-wrap")
+    public WebElement SideBarMenu;
+
+    @FindBy(id = "react-burger-cross-btn")
+    public WebElement sibeBarClose;
+
     @FindBy(className = "inventory_item_name")
-    public WebElement itemName;
+    public List<WebElement> itemNames;
+
+    @FindBy(className = "inventory_item_desc")
+    public List<WebElement> listOfDescriptions;
 
 
+    public String getNameOfItem(){
+        return driver.findElement(By.id("item_4_title_link")).getText();
+    }
+    public String getPriceOfItem(){
+        return listOfPrices.get(0).getText();
+    }
+    public String getDescriptionOfItem(){
+        return listOfDescriptions.get(0).getText();
+    }
+    public String getButtonText(){
+        return listOfRemoveButtons.get(0).getText();
+    }
 
 
     public void clickOnAddToCartButton() throws InterruptedException {
-        inventoryPage.listOfAddToCartButtons.get(0).click();
+        WebElement a = driver.findElement(By.cssSelector(".btn.btn_primary.btn_small.btn_inventory"));
+        a.click();
         Thread.sleep(3000);
     }
 
     public void clickOnSideBarMenu() throws InterruptedException {
-        sideBarMenu.click();
+        sideBarMenuButton.click();
         Thread.sleep(1500);
     }
     public void clickOnLogOutButton(){
@@ -112,6 +145,30 @@ public class InventoryPage extends BaseTest {
 
     public void clickOnLinkedIn(){
         linkedIn.click();
+    }
+
+    public void clickOnSideBar(){
+        sideBarMenuButton.click();
+    }
+
+    public void clickOnAllItems(){
+        sideBarAllItems.click();
+    }
+
+    public void clickOnAbout(){
+        sideBarAbout.click();
+    }
+
+    public void clickOnResetAppState(){
+        sideBarResetAppState.click();
+    }
+
+    public void clickOnCloseSideBar(){
+        sibeBarClose.click();
+    }
+
+    public void clickOnItemName(){
+        itemNames.get(0).click();
     }
 
 
@@ -173,12 +230,23 @@ public class InventoryPage extends BaseTest {
     public boolean allAddToCartButtonsAreDisplayed(){
         for (int i = 0; i < listOfItems.size(); i++) {
             WebElement a = listOfItems.get(i);
-            if(a.findElement(By.className(".btn.btn_primary.btn_small.btn_inventory")).isDisplayed() &&
-              !a.findElement(By.className(".btn.btn_primary.btn_small.btn_inventory")).getText().isEmpty())
+            if(a.findElement(By.cssSelector(".btn.btn_primary.btn_small.btn_inventory")).isDisplayed() &&
+              !a.findElement(By.cssSelector(".btn.btn_primary.btn_small.btn_inventory")).getText().isEmpty())
                 return true;
         }
         return false;
     }
+
+
+
+
+
+
+
+
+
+
+
     }
 
 

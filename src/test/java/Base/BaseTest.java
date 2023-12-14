@@ -5,6 +5,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.html5.WebStorage;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
@@ -85,15 +86,14 @@ public class BaseTest {
         inventoryPage.clickOnLogOutButton();
     }
 
-   /* public boolean checkQuantity(){
-        for (int i = 0; i < cartPage.cartQuantity.size(); i++) {
-            if(Assert.assertEquals(cartPage.cartQuantity.get(i).getText(),"1")){
-            return true;
+
+    public void clearSesionAndLocalStorage(){
+        if (!(driver instanceof WebStorage webStorage)) {
+            throw new IllegalArgumentException("This test expects the driver to implement WebStorage");
         }
-    }*/
-
-
-
+        webStorage.getSessionStorage().clear();
+        webStorage.getLocalStorage().clear();
+    }
 
 
 
