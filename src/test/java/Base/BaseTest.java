@@ -4,6 +4,7 @@ import Pages.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.html5.WebStorage;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -95,7 +96,15 @@ public class BaseTest {
         webStorage.getLocalStorage().clear();
     }
 
-
+    public boolean elementIsDisplayed(WebElement element) {
+        boolean isDisplayed = false;
+        try {
+            isDisplayed = element.isDisplayed();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return isDisplayed;
+    }
 
 
 
