@@ -16,7 +16,7 @@ public class ItemPageTests extends BaseTest {
     }
 
     @Test
-    public void verifyItemIsProperlyDisplayed(){
+    public void verifyActualItemIsProperlyDisplayedOnItemPage(){
         String nameInvPage = inventoryPage.getNameOfItem();
         inventoryPage.clickOnItemName();
         String nameItemPage = itemPage.getNameOfItem();
@@ -46,18 +46,9 @@ public class ItemPageTests extends BaseTest {
         Assert.assertTrue(itemPage.addToCartButton.isDisplayed());
     }
 
-
-
-
     @AfterMethod
     public void pageReset(){
         clearSesionAndLocalStorage();
     }
-
-
-
-
-
-
 
 }

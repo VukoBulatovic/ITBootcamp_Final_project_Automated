@@ -106,7 +106,11 @@ public class BaseTest {
         return isDisplayed;
     }
 
-
+    public void goToCheckout() {
+        inventoryPage.addRemoveAllItems("add");
+        inventoryPage.clickOnCart();
+        cartPage.clickOnCheckoutButton();
+    }
 
 
 

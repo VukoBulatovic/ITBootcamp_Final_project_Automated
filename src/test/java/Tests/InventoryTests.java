@@ -18,7 +18,7 @@ public class InventoryTests extends BaseTest {
     //-----------------------------------------------------------------------------------
 
     @Test(priority = 10)
-    public void verifyUserCanAddItemToCart() throws InterruptedException {
+    public void verifyUserCanAddItemToCart(){
         Assert.assertTrue(inventoryPage.checkIfCartIsEmpty());
         inventoryPage.clickOnAddToCartButton();
         Assert.assertTrue(inventoryPage.listOfRemoveButtons.get(0).isDisplayed());

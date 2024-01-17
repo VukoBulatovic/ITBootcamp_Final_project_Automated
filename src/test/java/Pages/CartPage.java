@@ -1,6 +1,7 @@
 package Pages;
 
 import Base.BaseTest;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -98,6 +99,10 @@ public class CartPage extends BaseTest {
             String two = "2";
             quantityField.sendKeys(two);
         }
+    }
+
+    public String getNumbersOfItemsOnCartIcon (){
+        return driver.findElement(By.className("shopping_cart_badge")).getText();
     }
 
 

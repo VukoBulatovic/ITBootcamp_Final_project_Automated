@@ -2,6 +2,7 @@ package Tests;
 
 import Base.BaseTest;
 import org.testng.Assert;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -19,7 +20,7 @@ public class CartPageTests extends BaseTest {
         Assert.assertEquals(cartPage.yourCartHeader.getText(), "Your Cart");
         Assert.assertTrue(cartPage.countinueShoppingButton.isDisplayed());
         //Assert.assertFalse(cartPage.checkOutButton.isDisplayed());
-        //Ovdje test pada, ne bi trebalo postojati checkout dugme sa obzirom da je korpa praznu (provjeriti dokumentaciju)
+        //Ovdje test pada, ne bi trebalo postojati checkout dugme sa obzirom da je korpa prazna (provjeriti dokumentaciju)
         //jer dugme dozvoljava do kraja izvrsiti kupovinu "nicega" (makes no sense to me) :)
         Assert.assertTrue(cartPage.checkIfCartIsEmpty());
         Assert.assertEquals(String.valueOf(cartPage.itemsInCart.size()),"0");
@@ -32,7 +33,7 @@ public class CartPageTests extends BaseTest {
     }
 
     @Test
-    public void verifyUserCanRemoveAddedItemFromCartPage() throws InterruptedException {
+    public void verifyUserCanRemoveAddedItemFromCartPage(){
         inventoryPage.clickOnAddToCartButton();
         inventoryPage.clickOnCart();
         Assert.assertEquals(String.valueOf(cartPage.itemsInCart.size()),"1");
@@ -42,7 +43,7 @@ public class CartPageTests extends BaseTest {
     }
 
     @Test
-    public void verifyUserCanChangeQuantityOfItem() throws InterruptedException {
+    public void verifyUserCanChangeQuantityOfItem(){
         inventoryPage.clickOnAddToCartButton();
         inventoryPage.clickOnCart();
         cartPage.cartQuantity.clear();
@@ -54,7 +55,7 @@ public class CartPageTests extends BaseTest {
 
 
     @Test
-    public void verifyUserCanProceedToCheckout() throws InterruptedException {
+    public void verifyUserCanProceedToCheckout(){
         inventoryPage.clickOnAddToCartButton();
         inventoryPage.clickOnCart();
         cartPage.clickOnCheckoutButton();
@@ -62,6 +63,9 @@ public class CartPageTests extends BaseTest {
         Assert.assertFalse(elementIsDisplayed(cartPage.checkOutButton));
     }
 
-
+    @AfterMethod
+    public void pageReset(){
+        clearSesionAndLocalStorage();
+    }
 
 }

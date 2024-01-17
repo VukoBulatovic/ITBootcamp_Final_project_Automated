@@ -91,10 +91,10 @@ public class InventoryPage extends BaseTest {
     }
 
 
-    public void clickOnAddToCartButton() throws InterruptedException {
+    public void clickOnAddToCartButton()  {
         WebElement a = driver.findElement(By.cssSelector(".btn.btn_primary.btn_small.btn_inventory"));
         a.click();
-        Thread.sleep(3000);
+        //Thread.sleep(3000);
     }
 
     public void clickOnSideBarMenu() throws InterruptedException {
